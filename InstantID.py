@@ -285,7 +285,7 @@ class ApplyInstantID:
         ip_weight = weight if ip_weight is None else ip_weight
         cn_strength = weight if cn_strength is None else cn_strength
 
-        if weight == 0 or ip_weight == 0 and cn_strength == 0:
+        if weight == 0 or (ip_weight == 0 and cn_strength == 0):
             return (model, positive, negative, )
         
         face_embed = extractFeatures(insightface, image)
