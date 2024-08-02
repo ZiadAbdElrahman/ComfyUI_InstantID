@@ -285,9 +285,13 @@ class ApplyInstantID:
         ip_weight = weight if ip_weight is None else ip_weight
         cn_strength = weight if cn_strength is None else cn_strength
 
+        if weight == 0 or ip_weight == 0 and cn_strength == 0:
+            return (model, positive, negative, )
+        
         face_embed = extractFeatures(insightface, image)
         if face_embed is None:
-            raise Exception('Reference Image: No face detected.')
+            return (model, positive, negative, )
+            # raise Exception('Reference Image: No face detected.')
 
         # if no keypoints image is provided, use the image itself (only the first one in the batch)
         face_kps = extractFeatures(insightface, image_kps if image_kps is not None else image[0].unsqueeze(0), extract_kps=True)
